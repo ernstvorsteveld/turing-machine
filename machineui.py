@@ -1,3 +1,4 @@
+from string import Template
 import PySimpleGUI as sg
 import tapecommander as tc
 
@@ -43,9 +44,9 @@ class MachineUi:
         pos = 0;
         for label in self.tapeCommander.getLabels():
             data = self.tapeCommander.print(label)
-            self.window['-TapeLeftPos' + str(pos) + '-'].update(data[0])
-            self.window['-TapeHeadPos' + str(pos) + '-'].update(data[1])
-            self.window['-TapeRightPos' + str(pos) + '-'].update(data[2])
+            self.window[Template('-TapeLeftPos${pos}-').substitute(pos = pos)].update(data[0])
+            self.window[Template('-TapeHeadPos${pos}-').substitute(pos = pos)].update(data[1])
+            self.window[Template('-TapeRightPos${pos}-').substitute(pos = pos)].update(data[2])
             pos += 1
 
 
