@@ -19,7 +19,8 @@ class TestTape(unittest.TestCase):
     def test_move_right(self):
         self.tape.move('R')
         view = self.tape.print()
-        self.assertEqual(view, ['_', '0', '000'])
+        self.assertEqual(self.tape.getHead(), 0)
+        self.assertEqual(view, ['', '_', '0000'])
 
     def test_moves(self):
         self.tape.move('L')

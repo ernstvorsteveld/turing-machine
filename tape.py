@@ -22,7 +22,6 @@ class Tape:
         print('rechts')
         if self.head == 0:
             self.tape.insert(0, '_')
-            self.head += 1
         else:
             self.head -= 1
 
