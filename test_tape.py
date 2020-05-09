@@ -7,6 +7,10 @@ class TestTape(unittest.TestCase):
         self.tape = tape.Tape('t1', ['0','0','0','0'],0)
         pass
 
+    def test_write_dash(self):
+        self.tape.write('-')
+        self.assertEqual(self.tape.print(), ['', '0', '000'])
+
     def test_print(self):
         view = self.tape.print()
         self.assertEqual(view, ['', '0', '000'])

@@ -26,7 +26,8 @@ class Tape:
             self.head -= 1
 
     def write(self, val):
-        self.tape[self.head] = val
+        if '-' != val:
+            self.tape[self.head] = val
 
     def print(self):
         if self.head == len(self.tape) - 1:

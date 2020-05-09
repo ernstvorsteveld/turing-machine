@@ -37,6 +37,12 @@ class MachineUi:
         sg.Text(size=(12,1), key=right,justification='left'),
         sg.Text(name)]
 
+    def updateWindow(self, pos, data):
+        self.window['-TapeLeftPos' + pos + '-'].update(data[0])
+        self.window['-TapeHeadPos' + pos + '-'].update(data[1])
+        self.window['-TapeRightPos' + pos + '-'].update(data[2])
+
+
     def run(self):       
         tapeCommander = tc.TapeCommander()
         while True:  # Event Loop
@@ -51,26 +57,13 @@ class MachineUi:
             if event == 'move':
                 tapeCommander.move([values['-MST-'],values['-MRA-'],values['-MRB-'],values['-MS-']])
             if event == 'Show':
-                ## Read all tapes en schow
                 #STACK TAPE
-                PrintTape = tapeCommander.print('ST')
-                self.window['-TapeLeftPos0-'].update(PrintTape[0])
-                self.window['-TapeHeadPos0-'].update(PrintTape[1])
-                self.window['-TapeRightPos0-'].update(PrintTape[2])
+                self.updateWindow('0', tapeCommander.print('ST'))
                 #Register A 
-                PrintTape = tapeCommander.print('RA')
-                self.window['-TapeLeftPos1-'].update(PrintTape[0])
-                self.window['-TapeHeadPos1-'].update(PrintTape[1])
-                self.window['-TapeRightPos1-'].update(PrintTape[2])
+                self.updateWindow('1', tapeCommander.print('RA'))
                 #Register B  
-                PrintTape = tapeCommander.print('RB')
-                self.window['-TapeLeftPos2-'].update(PrintTape[0])
-                self.window['-TapeHeadPos2-'].update(PrintTape[1])
-                self.window['-TapeRightPos2-'].update(PrintTape[2])
+                self.updateWindow('2', tapeCommander.print('RB'))
                 #STATUS TAPE
-                PrintTape = tapeCommander.print('S')
-                self.window['-TapeLeftPos3-'].update(PrintTape[0])
-                self.window['-TapeHeadPos3-'].update(PrintTape[1])
-                self.window['-TapeRightPos3-'].update(PrintTape[2])
+                self.updateWindow('3', tapeCommander.print('S'))
 
         self.window.close()
