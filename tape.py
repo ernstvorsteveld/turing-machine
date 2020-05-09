@@ -3,10 +3,10 @@ class Tape:
         self.name = name
         self.tape = tape
         self.head = head
+        self.moves = { 'L' : self.left, 'R' : self.right }
 
     def move(self, moveTo):
-        if(hasattr(self.__class__, moveTo) and callable(getattr(self.__class__, moveTo))):
-            self.moveTo()
+        self.moves[moveTo]()
 
     def stay(self):
         print('stay')
@@ -15,13 +15,15 @@ class Tape:
         print('links')  ## this is more like right
         if self.head == len(self.tape):
             self.tape.append('_')
-        self.head+=1
+        self.head += 1
 
     def right(self):
         print('rechts')
         if self.head == 0:
             self.tape.insert(0, '_')
-        self.head-=1
+            self.head += 1
+        else:
+            self.head -= 1
 
     def write(self, val):
         self.tape[self.head] = val
@@ -32,4 +34,6 @@ class Tape:
     def hasName(self, name):
         return self.name == name
 
+    def getHead(self):
+        return self.head
 

@@ -12,10 +12,35 @@ class TestTape(unittest.TestCase):
         self.assertEqual(view, ['', '0', '000'])
 
     def test_move_and_print(self):
-        self.tape.left()
+        self.tape.move('L')
         view = self.tape.print()
         self.assertEqual(view, ['0', '0', '00'])
 
+    def test_move_right(self):
+        self.tape.move('R')
+        view = self.tape.print()
+        self.assertEqual(view, ['_', '0', '000'])
+
+    def test_moves(self):
+        self.tape.move('L')
+        self.assertEqual(self.tape.getHead(), 1)
+        self.tape.move('L')
+        self.assertEqual(self.tape.getHead(), 2)
+        self.tape.move('L')
+        self.assertEqual(self.tape.getHead(), 3)
+        self.tape.move('L')
+        self.assertEqual(self.tape.getHead(), 4)
+        self.tape.move('L')
+        self.assertEqual(self.tape.getHead(), 5)
+        self.tape.move('L')
+        self.assertEqual(self.tape.getHead(), 6)
+        self.tape.move('L')
+        self.assertEqual(self.tape.getHead(), 7)
+        self.tape.move('R')
+        self.assertEqual(self.tape.getHead(), 6)
+        self.tape.move('R')
+        view = self.tape.print()
+        self.assertEqual(view, ['0000_', '_', '_'])
 
 if __name__ == '__main__':
     unittest.main()
