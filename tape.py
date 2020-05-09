@@ -6,7 +6,8 @@ class Tape:
         self.moves = { 'L' : self.left, 'R' : self.right }
 
     def move(self, moveTo):
-        self.moves[moveTo]()
+        if moveTo in self.moves:
+            self.moves.get(moveTo)()
 
     def stay(self):
         print('stay')
