@@ -3,6 +3,8 @@ import tapecommander as tc
 
 class MachineUi:
     def __init__(self):
+        self.tapeCommander = tc.TapeCommander()
+
         sg.theme('Dark Blue 3')
 
         self.frame_TapeCommando =[[sg.Button('INIT Tapes', key='INIT' ,font='Courier 10', size=[20,1])],
@@ -37,33 +39,29 @@ class MachineUi:
         sg.Text(size=(12,1), key=right,justification='left'),
         sg.Text(name)]
 
-    def updateWindow(self, pos, data):
-        self.window['-TapeLeftPos' + pos + '-'].update(data[0])
-        self.window['-TapeHeadPos' + pos + '-'].update(data[1])
-        self.window['-TapeRightPos' + pos + '-'].update(data[2])
+    def updateWindow(self):
+        pos = 0;
+        for label in self.tapeCommander.getLabels():
+            data = self.tapeCommander.print(label)
+            self.window['-TapeLeftPos' + str(pos) + '-'].update(data[0])
+            self.window['-TapeHeadPos' + str(pos) + '-'].update(data[1])
+            self.window['-TapeRightPos' + str(pos) + '-'].update(data[2])
+            pos += 1
 
 
     def run(self):       
-        tapeCommander = tc.TapeCommander()
         while True:  # Event Loop
             event, values = self.window.read(timeout = None)       # can also be written as event, values = window()
             print(event, values)
             if event is None or event == 'Exit':
                 break
             if event == 'INIT':
-                tapeCommander = tc.TapeCommander()
+                self.tapeCommander = tc.TapeCommander()
             if event == 'write':
-                tapeCommander.write([values['-WST-'],values['-WRA-'],values['-WRB-'],values['-WS-']])
+                self.tapeCommander.write([values['-WST-'],values['-WRA-'],values['-WRB-'],values['-WS-']])
             if event == 'move':
-                tapeCommander.move([values['-MST-'],values['-MRA-'],values['-MRB-'],values['-MS-']])
+                self.tapeCommander.move([values['-MST-'],values['-MRA-'],values['-MRB-'],values['-MS-']])
             if event == 'Show':
-                #STACK TAPE
-                self.updateWindow('0', tapeCommander.print('ST'))
-                #Register A 
-                self.updateWindow('1', tapeCommander.print('RA'))
-                #Register B  
-                self.updateWindow('2', tapeCommander.print('RB'))
-                #STATUS TAPE
-                self.updateWindow('3', tapeCommander.print('S'))
+                self.updateWindow()
 
         self.window.close()

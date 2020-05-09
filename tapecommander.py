@@ -12,6 +12,9 @@ class TapeCommander:
             t.Tape('RB', ['1','1','1','1'], 0),
             t.Tape('S', ['1','1','1','1'], 0)]
 
+    def getLabels(self):
+        return self.TapeLabels
+
     def move(self, moves):
         index = 0
         for tape in self.tapes:
