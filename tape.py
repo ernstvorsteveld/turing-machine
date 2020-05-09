@@ -27,7 +27,7 @@ class Tape:
         self.tape[self.head] = val
 
     def print(self):
-        return [self.tape[:self.head], self.tape[self.head], self.tape[self.head:]]
+        return [''.join(self.tape[:self.head]), self.tape[self.head], ''.join(self.tape[self.head+1:])]
 
     def hasName(self, name):
         return self.name == name
