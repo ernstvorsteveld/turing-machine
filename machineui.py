@@ -38,6 +38,7 @@ class MachineUi:
         sg.Text(name)]
 
     def run(self):       
+        tapeCommander = tc.TapeCommander()
         while True:  # Event Loop
             event, values = self.window.read(timeout = None)       # can also be written as event, values = window()
             print(event, values)
