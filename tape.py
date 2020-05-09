@@ -14,9 +14,9 @@ class Tape:
 
     def left(self):
         print('links')  ## this is more like right
+        self.head += 1
         if self.head == len(self.tape):
             self.tape.append('_')
-        self.head += 1
 
     def right(self):
         print('rechts')
@@ -29,6 +29,10 @@ class Tape:
         self.tape[self.head] = val
 
     def print(self):
+        print(self.head)
+        print(self.tape)
+        if self.head == len(self.tape) - 1:
+            return [''.join(self.tape[:self.head]), self.tape[self.head], '']
         return [''.join(self.tape[:self.head]), self.tape[self.head], ''.join(self.tape[self.head+1:])]
 
     def hasName(self, name):

@@ -22,6 +22,16 @@ class TestTape(unittest.TestCase):
         self.assertEqual(self.tape.getHead(), 0)
         self.assertEqual(view, ['', '_', '0000'])
 
+    def test_move_left(self):
+        self.tape.move('L')
+        self.tape.move('L')
+        self.tape.move('L')
+        self.tape.move('L')
+        self.tape.move('L')
+        self.assertEqual(self.tape.getHead(), 5)
+        self.assertEqual(self.tape.print(), ['0000_', '_', ''])
+
+
     def test_moves(self):
         self.tape.move('L')
         self.assertEqual(self.tape.getHead(), 1)
@@ -41,7 +51,7 @@ class TestTape(unittest.TestCase):
         self.assertEqual(self.tape.getHead(), 6)
         self.tape.move('R')
         view = self.tape.print()
-        self.assertEqual(view, ['0000_', '_', '_'])
+        self.assertEqual(view, ['0000_', '_', '__'])
 
 if __name__ == '__main__':
     unittest.main()
